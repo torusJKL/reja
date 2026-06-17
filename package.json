@@ -1,0 +1,176 @@
+{
+  "name": "reja",
+  "displayName": "Reja",
+  "description": "Interactive Janet REPL for VS Code",
+  "version": "0.1.0",
+  "publisher": "torusjkl",
+  "license": "GPL-3.0-only",
+  "icon": "reja-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/torusJKL/reja"
+  },
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Debuggers"
+  ],
+  "keywords": [
+    "janet",
+    "repl",
+    "lisp",
+    "interactive"
+  ],
+  "activationEvents": [
+    "onLanguage:janet",
+    "onCommand:reja.jackIn",
+    "onCommand:reja.connect",
+    "onCommand:reja.connectToHost",
+    "onCommand:reja.disconnect",
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "reja.jackIn",
+        "title": "Reja: Jack In"
+      },
+      {
+        "command": "reja.connect",
+        "title": "Reja: Connect"
+      },
+      {
+        "command": "reja.connectToHost",
+        "title": "Reja: Connect to Host"
+      },
+      {
+        "command": "reja.disconnect",
+        "title": "Reja: Disconnect"
+      },
+      {
+        "command": "reja.evaluateTopLevelForm",
+        "title": "Reja: Evaluate Top-Level Form"
+      },
+      {
+        "command": "reja.evaluateCurrentForm",
+        "title": "Reja: Evaluate Current Form"
+      },
+      {
+        "command": "reja.evaluateSelection",
+        "title": "Reja: Evaluate Selection"
+      },
+      {
+        "command": "reja.evaluateFile",
+        "title": "Reja: Evaluate File"
+      },
+      {
+        "command": "reja.interrupt",
+        "title": "Reja: Interrupt"
+      },
+      {
+        "command": "reja.clearInlineResults",
+        "title": "Reja: Clear Inline Results"
+      },
+      {
+        "command": "reja.clearReplEditor",
+        "title": "Reja: Clear REPL Editor"
+      },
+      {
+        "command": "reja.evaluateReplInput",
+        "title": "Reja: Evaluate REPL Input"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "reja.evaluateTopLevelForm",
+        "key": "alt+enter",
+        "when": "editorTextFocus && editorLangId == 'janet'"
+      },
+      {
+        "command": "reja.evaluateCurrentForm",
+        "key": "ctrl+enter",
+        "when": "editorTextFocus && editorLangId == 'janet'"
+      },
+      {
+        "command": "reja.evaluateReplInput",
+        "key": "enter",
+        "when": "editorTextFocus && resourceExtname == '.reja-repl' && reja:connected"
+      },
+      {
+        "command": "reja.evaluateTopLevelForm",
+        "key": "alt+enter",
+        "when": "editorTextFocus && resourceExtname == '.reja-repl' && reja:connected"
+      }
+    ],
+    "configuration": {
+      "title": "Reja",
+      "properties": {
+        "reja.host": {
+          "type": "string",
+          "default": "127.0.0.1",
+          "description": "Host address of the Janet REPL server"
+        },
+        "reja.port": {
+          "type": "number",
+          "default": 9365,
+          "description": "Port of the Janet REPL server"
+        },
+        "reja.janetPath": {
+          "type": "string",
+          "default": "janet",
+          "description": "Path to the janet executable (used for jack-in)"
+        },
+        "reja.autoConnect": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically connect to the REPL on startup"
+        },
+        "reja.inlineResultMaxLength": {
+          "type": "number",
+          "default": 500,
+          "description": "Maximum length of inline decoration text"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "janet",
+        "aliases": [
+          "Janet",
+          "janet"
+        ],
+        "extensions": [
+          ".janet",
+          ".reja-repl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "janet",
+        "scopeName": "source.janet",
+        "path": "./syntaxes/janet.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./tsconfig.json",
+    "watch": "tsc -watch -p ./tsconfig.json",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.9.3",
+    "@types/vscode": "^1.120.0",
+    "@vscode/test-electron": "^3.0.0",
+    "glob": "^13.0.6",
+    "mocha": "^11.7.6",
+    "typescript": "^6.0.3"
+  }
+}

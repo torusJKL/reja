@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C864"/>
+      <stop offset="50%" stop-color="#00B88A"/>
+      <stop offset="100%" stop-color="#00A8CC"/>
+    </linearGradient>
+    <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C864" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00A8CC" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="parenGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E874" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#00B88A" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background: deep terminal-night indigo, rounded square -->
+  <rect width="512" height="512" rx="96" fill="#0D0D1A"/>
+
+  <!-- Soft ambient glow behind the structure -->
+  <circle cx="256" cy="256" r="180" fill="url(#bgGlow)"/>
+
+  <!--
+    Lisp parens — frame the composition.
+    Green→teal gradient echoes the extension's inline result colors.
+  -->
+  <path d="M 172 95 C 72 158, 72 354, 172 417"
+        fill="none" stroke="url(#accent)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 340 95 C 440 158, 440 354, 340 417"
+        fill="none" stroke="url(#accent)" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- Paren inner glow highlights -->
+  <path d="M 172 95 C 72 158, 72 354, 172 417"
+        fill="none" stroke="url(#parenGlow)" stroke-width="10" stroke-linecap="round"
+        transform="translate(3, 0)"/>
+  <path d="M 340 95 C 440 158, 440 354, 340 417"
+        fill="none" stroke="url(#parenGlow)" stroke-width="10" stroke-linecap="round"
+        transform="translate(-3, 0)"/>
+
+  <!--
+    "reja" wordmark — bold, white, centered.
+  -->
+  <text x="256" y="282" text-anchor="middle" dominant-baseline="central"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="114" font-weight="800" fill="#FFFFFF" letter-spacing="6">
+    reja
+  </text>
+
+  <!--
+    λ — quiet Lisp heritage nod, bottom-left.
+    Small enough to be a secret handshake, not a statement.
+  -->
+  <text x="118" y="436" font-family="Georgia, 'Times New Roman', serif"
+        font-size="30" fill="#00A8CC" opacity="0.35" font-style="italic">
+    λ
+  </text>
+
+</svg>

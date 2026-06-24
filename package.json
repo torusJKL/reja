@@ -161,6 +161,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./tsconfig.json",
     "watch": "tsc -watch -p ./tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
@@ -171,6 +173,7 @@
     "@vscode/test-electron": "^3.0.0",
     "glob": "^13.0.6",
     "mocha": "^11.7.6",
+    "prettier": "^3.8.4",
     "typescript": "^6.0.3"
   }
 }

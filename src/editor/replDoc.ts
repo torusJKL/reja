@@ -70,7 +70,7 @@ export class ReplDoc {
     await vscode.workspace.applyEdit(edit);
 
     const editor = vscode.window.visibleTextEditors.find(
-      (e) => e.document.uri.toString() === doc.uri.toString()
+      (e) => e.document.uri.toString() === doc.uri.toString(),
     );
     if (editor) {
       const newLastLine = doc.lineCount - 1;
@@ -89,7 +89,7 @@ export class ReplDoc {
     await vscode.workspace.applyEdit(edit);
 
     const editor = vscode.window.visibleTextEditors.find(
-      (e) => e.document.uri.toString() === doc.uri.toString()
+      (e) => e.document.uri.toString() === doc.uri.toString(),
     );
     if (editor) {
       const newLastLine = doc.lineCount - 1;
@@ -106,7 +106,7 @@ export class ReplDoc {
     }
 
     const editor = vscode.window.visibleTextEditors.find(
-      (e) => e.document.uri.toString() === doc.uri.toString()
+      (e) => e.document.uri.toString() === doc.uri.toString(),
     );
     if (!editor) {
       return;
@@ -114,14 +114,15 @@ export class ReplDoc {
 
     const cursorPos = editor.selection.active;
     const lastLine = doc.lineCount - 1;
-    const cursorAtEnd = cursorPos.line === lastLine &&
-      cursorPos.character === doc.lineAt(lastLine).text.length;
+    const cursorAtEnd =
+      cursorPos.line === lastLine && cursorPos.character === doc.lineAt(lastLine).text.length;
 
     // When Enter is pressed, VS Code inserts a newline before our command runs.
     // The user's code is now on the line above the cursor. Look for it there.
-    const sourceLine = cursorPos.line > 0 && cursorPos.line === lastLine && doc.lineAt(lastLine).text === ''
-      ? cursorPos.line - 1
-      : cursorPos.line;
+    const sourceLine =
+      cursorPos.line > 0 && cursorPos.line === lastLine && doc.lineAt(lastLine).text === ''
+        ? cursorPos.line - 1
+        : cursorPos.line;
 
     const code = doc.lineAt(sourceLine).text.trim();
     if (!code) {
@@ -149,7 +150,7 @@ export class ReplDoc {
     const edit = new vscode.WorkspaceEdit();
     const fullRange = new vscode.Range(
       new vscode.Position(0, 0),
-      new vscode.Position(doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length)
+      new vscode.Position(doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length),
     );
     edit.replace(doc.uri, fullRange, GREETING);
     await vscode.workspace.applyEdit(edit);

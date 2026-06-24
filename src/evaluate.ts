@@ -10,17 +10,11 @@ export interface EvalOptions {
   onStream?: (text: string) => void;
 }
 
-export async function evaluateCode(
-  code: string,
-  options: EvalOptions
-): Promise<void> {
+export async function evaluateCode(code: string, options: EvalOptions): Promise<void> {
   const { session, onResult, onError } = options;
 
   if (session.connection.state === ConnectionState.Disconnected) {
-    const action = await vscode.window.showErrorMessage(
-      'Not connected to a REPL',
-      'Connect'
-    );
+    const action = await vscode.window.showErrorMessage('Not connected to a REPL', 'Connect');
     if (action === 'Connect') {
       vscode.commands.executeCommand('reja.connect');
     }
@@ -53,7 +47,7 @@ export async function evaluateCode(
 
 export async function evaluateTopLevelForm(
   editor: vscode.TextEditor,
-  options: EvalOptions
+  options: EvalOptions,
 ): Promise<void> {
   const doc = editor.document;
   const position = editor.selection.active;
@@ -74,7 +68,7 @@ export async function evaluateTopLevelForm(
 
 export async function evaluateCurrentForm(
   editor: vscode.TextEditor,
-  options: EvalOptions
+  options: EvalOptions,
 ): Promise<void> {
   const doc = editor.document;
   const position = editor.selection.active;
@@ -95,7 +89,7 @@ export async function evaluateCurrentForm(
 
 export async function evaluateSelection(
   editor: vscode.TextEditor,
-  options: EvalOptions
+  options: EvalOptions,
 ): Promise<void> {
   const code = editor.document.getText(editor.selection);
 
@@ -107,10 +101,7 @@ export async function evaluateSelection(
   await evaluateCode(code, options);
 }
 
-export async function evaluateFile(
-  editor: vscode.TextEditor,
-  options: EvalOptions
-): Promise<void> {
+export async function evaluateFile(editor: vscode.TextEditor, options: EvalOptions): Promise<void> {
   const code = editor.document.getText();
   await evaluateCode(code, options);
 }

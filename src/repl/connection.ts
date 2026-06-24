@@ -73,7 +73,9 @@ export class NetreplConnection {
       this.setState(ConnectionState.Connecting);
       this.socket = new net.Socket();
       this.handshakeDone = false;
-      this.handshakePromise = new Promise((r) => { this.handshakeResolve = r; });
+      this.handshakePromise = new Promise((r) => {
+        this.handshakeResolve = r;
+      });
       this.messageQueue = [];
 
       this.socket.on('connect', () => {
@@ -172,7 +174,7 @@ export class NetreplConnection {
   }
 
   private encodePayload(msg: string): Buffer {
-    if (msg.length > 0 && (msg.charCodeAt(0) === 0xFF || msg.charCodeAt(0) === 0xFE)) {
+    if (msg.length > 0 && (msg.charCodeAt(0) === 0xff || msg.charCodeAt(0) === 0xfe)) {
       const rest = Buffer.from(msg.slice(1), 'utf-8');
       const buf = Buffer.alloc(1 + rest.length);
       buf[0] = msg.charCodeAt(0);

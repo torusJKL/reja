@@ -14,15 +14,15 @@ export class ConnectionManager {
   constructor(private context: vscode.ExtensionContext) {
     this.connection = new NetreplConnection();
     this.outputChannel = vscode.window.createOutputChannel('Reja Log');
-    this.statusBarItem = vscode.window.createStatusBarItem(
-      vscode.StatusBarAlignment.Right,
-      100
-    );
+    this.statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
     this.updateStatusBar(ConnectionState.Disconnected);
 
     this.connection.onStateChange = (state: ConnectionState) => {
       this.updateStatusBar(state);
-      this.setContextKey('reja:connected', state === ConnectionState.Connected || state === ConnectionState.JackedIn);
+      this.setContextKey(
+        'reja:connected',
+        state === ConnectionState.Connected || state === ConnectionState.JackedIn,
+      );
       this.setContextKey('reja:jackedIn', state === ConnectionState.JackedIn);
     };
 
@@ -82,7 +82,7 @@ export class ConnectionManager {
       const error = err as Error;
       this.outputChannel.appendLine(`Connection failed: ${error.message}`);
       vscode.window.showErrorMessage(
-        `Could not connect to REPL at 127.0.0.1:${port}: ${error.message}`
+        `Could not connect to REPL at 127.0.0.1:${port}: ${error.message}`,
       );
     }
   }
@@ -98,13 +98,13 @@ export class ConnectionManager {
       await this.connection.waitForHandshake();
       this.session = new ReplSession(this.connection);
       vscode.window.showInformationMessage(
-        `Connected to Janet REPL at ${targetHost}:${targetPort}`
+        `Connected to Janet REPL at ${targetHost}:${targetPort}`,
       );
     } catch (err) {
       const error = err as Error;
       this.outputChannel.appendLine(`Connection failed: ${error.message}`);
       vscode.window.showErrorMessage(
-        `Could not connect to REPL at ${targetHost}:${targetPort}: ${error.message}`
+        `Could not connect to REPL at ${targetHost}:${targetPort}: ${error.message}`,
       );
     }
   }

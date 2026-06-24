@@ -5,10 +5,7 @@ export interface FormBounds {
   end: number;
 }
 
-function byteOffsetFromPosition(
-  doc: vscode.TextDocument,
-  position: vscode.Position
-): number {
+function byteOffsetFromPosition(doc: vscode.TextDocument, position: vscode.Position): number {
   const text = doc.getText();
   const lines = text.split('\n');
   let offset = 0;
@@ -19,10 +16,7 @@ function byteOffsetFromPosition(
   return offset;
 }
 
-function positionFromByteOffset(
-  doc: vscode.TextDocument,
-  byteOffset: number
-): vscode.Position {
+function positionFromByteOffset(doc: vscode.TextDocument, byteOffset: number): vscode.Position {
   const text = doc.getText();
   let line = 0;
   let col = 0;
@@ -37,10 +31,7 @@ function positionFromByteOffset(
   return new vscode.Position(line, col);
 }
 
-function rangeFromFormBounds(
-  doc: vscode.TextDocument,
-  bounds: FormBounds
-): vscode.Range {
+function rangeFromFormBounds(doc: vscode.TextDocument, bounds: FormBounds): vscode.Range {
   const start = positionFromByteOffset(doc, bounds.start);
   const end = positionFromByteOffset(doc, bounds.end);
   return new vscode.Range(start, end);
@@ -74,10 +65,7 @@ function skipString(source: string, pos: number): number {
   return pos + 1;
 }
 
-export function findEnclosingFormBounds(
-  source: string,
-  offset: number
-): FormBounds | null {
+export function findEnclosingFormBounds(source: string, offset: number): FormBounds | null {
   const len = source.length;
   if (len === 0) {
     return null;
@@ -156,10 +144,7 @@ export function findEnclosingFormBounds(
   return { start, end: Math.min(end, len) };
 }
 
-export function findTopLevelFormBounds(
-  source: string,
-  offset: number
-): FormBounds | null {
+export function findTopLevelFormBounds(source: string, offset: number): FormBounds | null {
   const enclosing = findEnclosingFormBounds(source, offset);
   if (!enclosing) {
     return null;
@@ -176,7 +161,7 @@ export function findTopLevelFormBounds(
 
 export function findEnclosingForm(
   doc: vscode.TextDocument,
-  position: vscode.Position
+  position: vscode.Position,
 ): vscode.Range | null {
   const source = doc.getText();
   const offset = byteOffsetFromPosition(doc, position);
@@ -189,7 +174,7 @@ export function findEnclosingForm(
 
 export function findTopLevelForm(
   doc: vscode.TextDocument,
-  position: vscode.Position
+  position: vscode.Position,
 ): vscode.Range | null {
   const source = doc.getText();
   const offset = byteOffsetFromPosition(doc, position);

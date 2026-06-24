@@ -16,9 +16,7 @@ let connectionManager: ConnectionManager | null = null;
 let replDoc: ReplDoc | null = null;
 let decorations: InlineDecorations | null = null;
 
-function withSession(
-  fn: (session: import('./repl/session').ReplSession) => void
-) {
+function withSession(fn: (session: import('./repl/session').ReplSession) => void) {
   const session = connectionManager?.getSession();
   if (session) {
     fn(session);
@@ -55,8 +53,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('reja.jackIn', async () => {
       await connectionManager?.jackIn();
       replDoc?.setSession(connectionManager?.getSession() ?? null);
-          await replDoc?.reveal();
-    })
+      await replDoc?.reveal();
+    }),
   );
 
   context.subscriptions.push(
@@ -64,7 +62,7 @@ export function activate(context: vscode.ExtensionContext) {
       await connectionManager?.connect();
       replDoc?.setSession(connectionManager?.getSession() ?? null);
       await replDoc?.reveal();
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -72,14 +70,14 @@ export function activate(context: vscode.ExtensionContext) {
       await connectionManager?.connectToHost();
       replDoc?.setSession(connectionManager?.getSession() ?? null);
       await replDoc?.reveal();
-    })
+    }),
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('reja.disconnect', () => {
       replDoc?.setSession(null);
       connectionManager?.disconnect();
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -102,7 +100,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
         await evaluateTopLevelForm(editor, options);
       });
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -125,7 +123,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
         await evaluateCurrentForm(editor, options);
       });
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -148,7 +146,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
         await evaluateSelection(editor, options);
       });
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -169,13 +167,13 @@ export function activate(context: vscode.ExtensionContext) {
         };
         await evaluateFile(editor, options);
       });
-    })
+    }),
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('reja.evaluateReplInput', async () => {
       await replDoc?.evaluateInput();
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -183,19 +181,19 @@ export function activate(context: vscode.ExtensionContext) {
       withSession(async (session) => {
         await interrupt(session);
       });
-    })
+    }),
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('reja.clearInlineResults', () => {
       decorations?.clearAll();
-    })
+    }),
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('reja.clearReplEditor', () => {
       replDoc?.clear();
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -230,7 +228,7 @@ export function activate(context: vscode.ExtensionContext) {
             break;
         }
       });
-    })
+    }),
   );
 }
 

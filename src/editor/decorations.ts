@@ -39,7 +39,7 @@ export class InlineDecorations {
       this.successDecoration,
       this.errorDecoration,
       this.selectionHighlightSuccess,
-      this.selectionHighlightError
+      this.selectionHighlightError,
     );
 
     vscode.workspace.onDidChangeTextDocument(
@@ -49,7 +49,7 @@ export class InlineDecorations {
         }
       },
       null,
-      this.disposables
+      this.disposables,
     );
   }
 
@@ -57,7 +57,7 @@ export class InlineDecorations {
     editor: vscode.TextEditor,
     range: vscode.Range,
     result: string,
-    isError: boolean
+    isError: boolean,
   ): void {
     const uri = editor.document.uri.toString();
     if (!this.resultDecorations.has(uri)) {
@@ -65,9 +65,7 @@ export class InlineDecorations {
     }
 
     const truncated =
-      result.length > MAX_INLINE_LENGTH
-        ? result.substring(0, MAX_INLINE_LENGTH) + '...'
-        : result;
+      result.length > MAX_INLINE_LENGTH ? result.substring(0, MAX_INLINE_LENGTH) + '...' : result;
 
     const decoration = {
       range: range,
@@ -84,9 +82,7 @@ export class InlineDecorations {
     const decoType = isError ? this.errorDecoration : this.successDecoration;
     editor.setDecorations(decoType, decorations);
 
-    const highlightDeco = isError
-      ? this.selectionHighlightError
-      : this.selectionHighlightSuccess;
+    const highlightDeco = isError ? this.selectionHighlightError : this.selectionHighlightSuccess;
     editor.setDecorations(highlightDeco, [range]);
   }
 

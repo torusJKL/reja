@@ -19,7 +19,25 @@ Reja provides a Calva-like interactive programming experience for Janet in VS Co
 ## Installation
 
 1. Install from VS Code Marketplace (coming soon)
-2. Or package locally: `vsce package`
+2. Or build and install locally:
+
+   ```bash
+   # Clone the repository
+   git clone https://github.com/torusJKL/reja.git
+   cd reja
+
+   # Install dependencies
+   npm install
+
+   # Compile TypeScript
+   npm run compile
+
+   # Package the extension
+   npx @vscode/vsce package
+
+   # Install the generated .vsix file
+   code --install-extension reja-*.vsix
+   ```
 
 ## Configuration
 

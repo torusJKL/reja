@@ -15,5 +15,5 @@
     "declarationMap": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "out", ".vscode-test", "src/test"]
+  "exclude": ["node_modules", "out", ".vscode-test"]
 }
